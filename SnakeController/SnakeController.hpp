@@ -31,6 +31,8 @@ public:
 
     void receive(std::unique_ptr<Event> e) override;
 
+    void processFoodResp(FoodResp requestedFood);
+
 private:
     struct Segment
     {
