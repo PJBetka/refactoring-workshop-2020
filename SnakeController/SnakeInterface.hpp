@@ -7,10 +7,10 @@ namespace Snake
 
 enum Direction
 {
-    Direction_UP    = 0b00,
-    Direction_DOWN  = 0b10,
-    Direction_LEFT  = 0b01,
-    Direction_RIGHT = 0b11
+    Direction_UP    = 0,
+    Direction_DOWN  = 2,
+    Direction_LEFT  = 1,
+    Direction_RIGHT = 3
 };
 
 struct DirectionInd
