@@ -34,6 +34,7 @@ public:
     void processFoodResp(FoodResp requestedFood);
     void processFoodInd(FoodInd receivedFood);
     void processDirectionInd(Direction direction);
+    void processTimeoutInd();
 
 private:
     struct Segment
