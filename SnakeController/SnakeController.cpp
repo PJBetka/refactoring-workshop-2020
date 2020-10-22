@@ -67,36 +67,40 @@ void Controller::receive(std::unique_ptr<Event> e)
 {
     try
     {
-        auto const &timerEvent = *dynamic_cast<EventT<TimeoutInd> const &>(*e);
+        *dynamic_cast<EventT<TimeoutInd> const &>(*e);
         processTimeoutInd();
+        return;
     }
     catch (std::bad_cast &)
     {
-        try
-        {
-            auto direction = dynamic_cast<EventT<DirectionInd> const &>(*e)->direction;
-            processDirectionInd(direction);
-        }
-        catch (std::bad_cast &)
-        {
-            try
-            {
-                auto receivedFood = *dynamic_cast<EventT<FoodInd> const &>(*e);
-                processFoodInd(receivedFood);
-            }
-            catch (std::bad_cast &)
-            {
-                try
-                {
-                    auto requestedFood = *dynamic_cast<EventT<FoodResp> const &>(*e);
-                    processFoodResp(requestedFood);
-                }
-                catch (std::bad_cast &)
-                {
-                    throw UnexpectedEventException();
-                }
-            }
-        }
+    }
+    try
+    {
+        auto direction = dynamic_cast<EventT<DirectionInd> const &>(*e)->direction;
+        processDirectionInd(direction);
+        return;
+    }
+    catch (std::bad_cast &)
+    {
+    }
+    try
+    {
+        auto receivedFood = *dynamic_cast<EventT<FoodInd> const &>(*e);
+        processFoodInd(receivedFood);
+        return;
+    }
+    catch (std::bad_cast &)
+    {
+    }
+    try
+    {
+        auto requestedFood = *dynamic_cast<EventT<FoodResp> const &>(*e);
+        processFoodResp(requestedFood);
+        return;
+    }
+    catch (std::bad_cast &)
+    {
+        throw UnexpectedEventException();
     }
 }
 
