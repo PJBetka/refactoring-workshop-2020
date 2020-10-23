@@ -6,6 +6,7 @@
 
 #include "IEventHandler.hpp"
 #include "SnakeInterface.hpp"
+#include "SnakeMap.hpp"
 
 class Event;
 class IPort;
@@ -37,14 +38,13 @@ private:
     IPort& m_foodPort;
     IPort& m_scorePort;
 
-    std::pair<int, int> m_mapDimension;
-    std::pair<int, int> m_foodPosition;
-
     struct Segment
     {
         int x;
         int y;
     };
+
+    SnakeMap map;
 
     std::list<Segment> m_segments;
     Direction m_currentDirection;
@@ -61,8 +61,6 @@ private:
     void addHeadSegment(Segment const& newHead);
     void removeTailSegmentIfNotScored(Segment const& newHead);
     void removeTailSegment();
-
-    bool isPositionOutsideMap(int x, int y) const;
 
     void updateFoodPosition(int x, int y, std::function<void()> clearPolicy);
     void sendClearOldFood();
